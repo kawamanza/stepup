@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+[ $# -eq 0 ] && eval set -- version show
+
+PROGRAM_NAME=$(basename $0)
+PROGRAM_VERSION=1.0.0.alpha1
+
+show_program_version() {
+    printf "%s, version %s\n" "$PROGRAM_NAME" "$PROGRAM_VERSION"
+}
+
+show_usage() {
+    echo "Usage: $PROGRAM_NAME -vh"
+    echo
+}
+
+die() {
+    echo $1 >&2
+    exit 1
+}
+
+# get the root folder
+get_stepup_dir() {
+    local _dir
+    if [ -d $HOME/.stepup ]; then
+        echo $HOME/.stepup/lib
+        return 0
+    fi
+    _dir=$(dirname $0)
+    if [ "$_dir" == "." ]; then
+        _dir=".."
+    else
+        _dir=$(dirname $_dir)
+    fi
+    if [ -d $_dir/lib/stepup/lib ]; then
+        echo $_dir/lib/stepup/lib
+    else
+        die "stepup lib path not found"
+    fi
+}
+if [ -z "$STEPUP_ROOT" ]; then
+    STEPUP_ROOT=$(get_stepup_dir)
+    [ $? -ne 0 ] && exit 1
+fi
+
+SUB_COMMAND=""
+case $1 in
+    version|notes|init)
+        SUB_COMMAND="$1"
+        shift
+    ;;
+esac
+
+if [ -z "$SUB_COMMAND" ]; then
+    while getopts ":vhM" opt; do
+        case $opt in
+            h)
+                show_usage
+                exit 0
+                ;;
+            v)
+                show_program_version
+                exit 0
+                ;;
+            \?)
+                if [ "$OPTARG" == "-" ]; then
+                    opt=$(eval echo \$$OPTIND)
+                    case $opt in
+                        --version)
+                            show_program_version
+                            exit 0
+                        ;;
+                        *)
+                            OPTARG=${opt#-}
+                        ;;
+                    esac
+                fi
+                die "Invalid option: -$OPTARG"
+                ;;
+            :)
+                die "Option -$OPTARG requires an argument."
+                ;;
+        esac
+    done
+    SUB_COMMAND="version"
+fi
+
+if [ ! -f $STEPUP_ROOT/$SUB_COMMAND.sh ]; then
+    die "Invalid sub-command: $SUB_COMMAND"
+fi
+
+source $STEPUP_ROOT/$SUB_COMMAND.sh
