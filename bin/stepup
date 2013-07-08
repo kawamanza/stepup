@@ -11,9 +11,9 @@ show_program_version() {
 
 show_usage() {
     echo "Usage:"
-    echo "  $PROGRAM_NAME # default subcommands ('version show')"
     echo "  $PROGRAM_NAME [global options]"
     echo "  $PROGRAM_NAME <subcommand>"
+    echo "  $PROGRAM_NAME # same as \`$PROGRAM_NAME version show\`"
     echo "  $PROGRAM_NAME help <subcommand>"
     echo
     echo "Global Options:"
