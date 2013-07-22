@@ -60,11 +60,16 @@ fi
 
 SUB_COMMAND=""
 case $1 in
-    version|notes|init)
+    version|notes|init|help)
         SUB_COMMAND="$1"
         shift
     ;;
 esac
+
+if [ "$SUB_COMMAND" = "help" ] && [ $# -eq 0 ]; then
+    unset SUB_COMMAND
+    set -- -h
+fi
 
 if [ -z "$SUB_COMMAND" ]; then
     while getopts ":vhM" opt; do
@@ -97,7 +102,7 @@ if [ -z "$SUB_COMMAND" ]; then
                 ;;
         esac
     done
-    SUB_COMMAND="version"
+    SUB_COMMAND="${1:-version}"
 fi
 
 if [ ! -f $STEPUP_ROOT/$SUB_COMMAND.sh ]; then
