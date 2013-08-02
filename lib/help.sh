@@ -9,7 +9,7 @@ show_version_usage() {
     # echo "  help     Display subcommands usage"
     echo "  show     Display current version and revision"
     # echo "  current  Display last version increased"
-    # echo "  tags     Dislpay all semantic version tags"
+    echo "  tags     Dislpay all semantic version tags"
     # echo "  create   Increase project version"
     echo
 }
