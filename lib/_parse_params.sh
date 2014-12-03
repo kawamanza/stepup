@@ -7,7 +7,10 @@ while [ $# -gt 0 ]
 do
   case $1 in
   # Normal option processing
-    -v | -version)
+    -d | -v)
+      args+=($1)
+      ;;
+    -version)
       args+=("-v")
       ;;
     -h | --help)
