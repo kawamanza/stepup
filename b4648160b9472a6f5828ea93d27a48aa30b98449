@@ -1,0 +1,2 @@
+Sub-command `version tags` to check all tags that represents
+ a version according to the defined mask
