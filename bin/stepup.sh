@@ -2,7 +2,7 @@
 
 [ $# -eq 0 ] && eval set -- version show
 
-PROGRAM_NAME=$(basename $0)
+declare PROGRAM_NAME=$(basename $0)
 PROGRAM_VERSION=1.0.0.alpha1
 
 show_program_version() {
@@ -50,15 +50,15 @@ get_stepup_dir() {
     if [ -d $_dir/lib/stepup/lib ]; then
         echo $_dir/lib/stepup/lib
     else
-        die "stepup lib path not found"
+        die "could not define stepup instalation directory"
     fi
 }
 if [ -z "$STEPUP_ROOT" ]; then
-    STEPUP_ROOT=$(get_stepup_dir)
-    [ $? -ne 0 ] && exit 1
+    declare STEPUP_ROOT=$(get_stepup_dir)
+    ([ $? -ne 0 ] || [ -z "$STEPUP_ROOT" ]) && exit 1
 fi
 
-SUB_COMMAND=""
+declare SUB_COMMAND=""
 case $1 in
     version|notes|init|help)
         SUB_COMMAND="$1"
