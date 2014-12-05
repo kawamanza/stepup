@@ -1,0 +1,6 @@
+# declare STEPUP_RELEASE_MASK="v{major}.{minor}.{patch}"
+
+# declare -a STEPUP_NOTES_SECTIONS=(features\>minor deploy_steps\>minor bugfixes\>patch changes\>patch)
+# declare STEPUP_NOTES_SECTION_features="Features:"
+# declare STEPUP_NOTES_SECTION_bugfixes="Bugfixes:"
+# declare STEPUP_NOTES_SECTION_changes="Changes:"
