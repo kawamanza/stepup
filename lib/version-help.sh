@@ -2,6 +2,10 @@ show_version_tags_usage() {
     echo "Usage:"
     echo "  $PROGRAM_NAME version tags"
     echo
+    echo "Global Options:"
+    echo
+    echo "  -d  Enable debug option"
+    echo
 }
 
 case $1 in
