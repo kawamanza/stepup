@@ -7,4 +7,4 @@ source $STEPUP_ROOT/_support.sh
 
 debug "looking up for tags masked as: $STEPUP_RELEASE_MASK"
 debug "Shell regular expression: $(_mask2re)"
-_version_tags # TODO: sort the tags
+_version_tags | xargs $STEPUP_ROOT/nsort.py
